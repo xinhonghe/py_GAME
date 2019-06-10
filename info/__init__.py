@@ -6,6 +6,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import redis
+from redis import StrictRedis
 from config import config
 from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
@@ -14,6 +15,8 @@ import logging
 from logging.handlers import RotatingFileHandler
 # 创建数据库扩展对象db
 db = SQLAlchemy()
+redis_store = None   # type:StrictRedis
+
 
 
 """
@@ -56,10 +59,15 @@ def create_app(config_name):
     # db = SQLAlchemy(app)
     db.init_app(app)    # 通过app方法初始化app
     # 集成redis
+    # 变量声明类型
+    global redis_store
     redis_store = redis.StrictRedis(host=config[config_name].REDIS_HOST,port=config[config_name].REDIS_PORT)
     # 集成CSRF,不需要wtf表单.但是需要csrf验证. 所以我们需要导入wtf中csrfProtect
     CSRFProtect(app)
     # Session,指定保存位置
     Session(app)
+    # TODO 五．2.注册蓝图,将导入移到这里来，解决循环导入问题
+    from info.modules.index import index_blu
+    app.register_blueprint(index_blu)
 
     return app
