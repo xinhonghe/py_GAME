@@ -26,6 +26,14 @@
     3.执行迁移文件：python manage.py db upgrade
     4.添加忽略文件
     5.提交代码
+六．添加测试数据，静态文件
+    添加根路由图标路由
+"""
+"""
+登录注册
+一．图片验证码
+    1.前端实现index.html->main.js
+    2.后端实现passport->views.py
 
 """
 

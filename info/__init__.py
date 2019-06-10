@@ -66,8 +66,11 @@ def create_app(config_name):
     CSRFProtect(app)
     # Session,指定保存位置
     Session(app)
-    # TODO 五．2.注册蓝图,将导入移到这里来，解决循环导入问题
+    # TODO 五．2.注册根路由蓝图,将导入移到这里来，解决循环导入问题
     from info.modules.index import index_blu
     app.register_blueprint(index_blu)
+    # TODO 七．2.注册登录注册路由蓝图，解决循环导入
+    from info.modules.passport import passport_blu
+    app.register_blueprint(passport_blu)
 
     return app
