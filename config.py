@@ -1,10 +1,12 @@
 """
 1.抽取配置文件
 3.项目多种配置：使用面向对象的方法重改配置类，利用类的继承实现不同的配置环境
+四．2.修改日志基本配置
 """
 
 
 import redis
+import logging
 
 
 class Config():
@@ -35,10 +37,12 @@ class Config():
 class DevelopConfig(Config):
     """开发环境配置"""
     DEBUG = True
+    LOG_LEVEL = logging.DEBUG
 
 class ProductConfig(Config):
     """生产环境配置"""
     DEBUG = False
+    LOG_LEVEL = logging.ERROR
 
 class TestingConfig(Config):
     """单元测试环境配置"""

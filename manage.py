@@ -11,6 +11,10 @@
     2.抽取业务逻辑代码到info->init
     3.项目多种配置：使用面向对象的方法重改配置类，利用类的继承实现不同的配置环境
     4.工厂方法创建实例：封装app的创建函数，通过创建app时传入不同值进入不同的配置环境
+三.日志模块
+    1.逻辑业务代码->info.init
+    2.
+
 """
 
 
@@ -24,6 +28,7 @@ from flask_script import Manager
 from flask_migrate import Migrate,MigrateCommand
 # from config import Config
 from info import create_app,db
+import logging
 
 
 # 传入app运行配置参数
@@ -38,6 +43,10 @@ manager.add_command('db',MigrateCommand)
 
 @app.route('/')
 def index():
+    logging.debug('测试debug')
+    logging.warning('测试WARNING')
+    logging.error('测试error')
+    logging.fatal('测试fatal')
     return "index"
 
 
